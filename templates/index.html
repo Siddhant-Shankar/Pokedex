@@ -7,56 +7,68 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <h1>Pokédex</h1>
+    <header>
+        <h1>Pokédex</h1>
+    </header>
 
-    <!-- Search Form -->
-    <form method="POST">
-        <input type="text" name="search" placeholder="Enter Pokémon name..." value="{{ query or '' }}">
-        <button type="submit">Search</button>
-        <!-- align thesearch button in the centre-->
-        <button type="submit" name="search" value="">Reset</button>
-    </form>
+    <section class="search-section">
+        <!-- Search Form -->
+        <form method="POST">
+            <input type="text" name="search" placeholder="Enter Pokémon name or number..." value="{{ query or '' }}">
+            <button type="submit">Search</button>
+            <!-- Reset button submits an empty value -->
+            <button type="button" onclick="document.getElementsByName('search')[0].value=''; this.form.submit();">Reset</button>
+            
+        </form>
+    </section>
 
-    {% if pokemon %}
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Name</th>
-                    <th>Type 1</th>
-                    <th>Type 2</th>
-                    <th>Total</th>
-                    <th>HP</th>
-                    <th>Attack</th>
-                    <th>Defense</th>
-                    <th>Sp. Atk</th>
-                    <th>Sp. Def</th>
-                    <th>Speed</th>
-                    <th>Generation</th>
-                    <th>Legendary</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for p in pokemon %}
-                <tr>
-                    <td>{{ p["#"] }}</td>
-                    <td>{{ p["Name"] }}</td>
-                    <td>{{ p["Type 1"] }}</td>
-                    <td>{{ p["Type 2"] or "None" }}</td>
-                    <td>{{ p["Total"] }}</td>
-                    <td>{{ p["HP"] }}</td>
-                    <td>{{ p["Attack"] }}</td>
-                    <td>{{ p["Defense"] }}</td>
-                    <td>{{ p["Sp. Atk"] }}</td>
-                    <td>{{ p["Sp. Def"] }}</td>
-                    <td>{{ p["Speed"] }}</td>
-                    <td>{{ p["Generation"] }}</td>
-                    <td>{{ "Yes" if p["Legendary"] else "No" }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    {% else %}
-    {% endif %}
+    <section class="table-section">
+        {% if pokemon %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Type 1</th>
+                        <th>Type 2</th>
+                        <th>Total</th>
+                        <th>HP</th>
+                        <th>Attack</th>
+                        <th>Defense</th>
+                        <th>Sp. Atk</th>
+                        <th>Sp. Def</th>
+                        <th>Speed</th>
+                        <th>Generation</th>
+                        <th>Legendary</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for p in pokemon %}
+                    <tr>
+                        <td>{{ p["#"] }}</td>
+                        <td>{{ p["Name"] }}</td>
+                        <td>{{ p["Type 1"] }}</td>
+                        <td>{{ p["Type 2"] or "None" }}</td>
+                        <td>{{ p["Total"] }}</td>
+                        <td>{{ p["HP"] }}</td>
+                        <td>{{ p["Attack"] }}</td>
+                        <td>{{ p["Defense"] }}</td>
+                        <td>{{ p["Sp. Atk"] }}</td>
+                        <td>{{ p["Sp. Def"] }}</td>
+                        <td>{{ p["Speed"] }}</td>
+                        <td>{{ p["Generation"] }}</td>
+                        <td>{{ "Yes" if p["Legendary"] else "No" }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No Pokémon found.</p>
+        {% endif %}
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Pokédex App</p>
+    </footer>
 </body>
 </html>
